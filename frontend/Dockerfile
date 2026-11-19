@@ -6,11 +6,11 @@ FROM node:22-alpine AS deps
 RUN apk add --no-cache git
 
 RUN git clone --depth=1 \
-    https://github.com/bearddaniel80-netizen/web-compliance.git
+    https://github.com/bearddaniel80-netizen/web-react-compliance.git
 
 WORKDIR /build
 
-RUN cp /web-compliance/frontend/package.json .
+RUN cp /web-react-compliance/frontend/package.json .
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install
@@ -30,7 +30,7 @@ WORKDIR /app
 
 COPY --from=deps /build/node_modules ./node_modules
 
-COPY --from=deps /web-compliance/frontend .
+COPY --from=deps /web-react-compliance/frontend .
 # To generate docs
 # RUN npm run docs
 RUN mkdir -p src/components
